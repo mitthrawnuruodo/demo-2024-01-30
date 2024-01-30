@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async / await example</title>
+</head>
+<body>
+    <p>Open console</p>
+<script>
+async function fetchProducts() {
+    try {
+        const url = 'https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json';
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+    }
+    catch (error) {
+        console.error(`Could not get products: ${error}`);
+    }
+}
+
+fetchProducts();
+</script>
+</body>
+</html>

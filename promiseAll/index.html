@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise all</title>
+</head>
+<body>
+    Open Console
+
+<script>
+// this will be counted as if the iterable passed is empty, 
+// so it gets fulfilled
+const p = Promise.all([1, 2, 3]);
+// this will be counted as if the iterable passed contains only
+// the resolved promise with value "444", so it gets fulfilled
+const p2 = Promise.all([1, 2, 3, Promise.resolve(4)]);
+// this will be counted as if the iterable passed contains only 
+// the rejected promise with value "555", so it gets rejected
+const p3 = Promise.all([1, 2, 3, Promise.reject(5)]);
+
+// using setTimeout we can execute code after the queue is empty
+setTimeout(() => {
+    console.log(p);  
+    // Promise { <state>: "fulfilled", <value>: Array[3] }
+    console.log(p2); 
+    // Promise { <state>: "fulfilled", <value>: Array[4] }
+    console.log(p3); 
+    // Promise { <state>: "rejected", <reason>: 555 }
+});    
+</script>
+</body>
+</html>
