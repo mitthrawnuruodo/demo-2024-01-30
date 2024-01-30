@@ -9,21 +9,30 @@
     <p>Open console</p>
 <script>
 async function fetchProducts() {
-    try {
-        const url = 'https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json';
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
+  try {
+    const url = 'https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json';
+    // after this line, our function will wait for the `fetch()` call
+    // to be settled the `fetch()` call will either return a Response
+    // or throw an error
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
     }
-    catch (error) {
-        console.error(`Could not get products: ${error}`);
-    }
+    // after this line, our function will wait for the `response.json()`
+    // call to be settled the `response.json()` call will either return
+    // the parsed JSON object or throw an error
+    const data = await response.json();
+
+    // Console log out the name of the first product received
+    console.log(data[0].name);
+    // Now call any function to handle the data, eg. listData()
+  }
+  catch (error) {
+    console.error(`Could not get products: ${error}`);
+  }
 }
 
-fetchProducts();
+fetchProducts(); // "baked beans"
 </script>
 </body>
 </html>
